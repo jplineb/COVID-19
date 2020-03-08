@@ -35,7 +35,8 @@ for x,y in zip(time_deaths,time_confirms):
     mortality.append(x/y)
 
 
-df_mortality = pd.DataFrame(zip(dates,mortality))
+df_mortality = pd.DataFrame(zip(dates,mortality,time_confirms,time_recovers,time_deaths),
+                            columns=['dates', 'mortality_rate', 'confirms', 'recovers', 'deaths'])
 plt.figure(figsize=(10,7))
 plt.plot(dates, mortality)
 plt.title('Mortality Rate')
@@ -45,11 +46,13 @@ plt.xlabel('Dates')
 plt.autoscale()
 
 plt.figure(2, figsize=(10,7))
+plt.title('Stats')
 plt.plot(dates, time_deaths, label='Deaths')
 plt.plot(dates, time_recovers, label='Recovered')
 plt.plot(dates, time_confirms, label= 'Confirmed')
 plt.legend()
 plt.xticks(rotation=90)
+plt.yticks(np.arange(0,150000, step=5000))
 plt.ylabel('stats')
 plt.xlabel('Dates')
 plt.autoscale()
